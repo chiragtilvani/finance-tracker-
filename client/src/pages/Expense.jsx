@@ -73,7 +73,7 @@ const Expense = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await fetch('http://localhost:5000/api/auth/user', {
+        const userRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/user', {
           headers: { 
             "Authorization": `Bearer ${localStorage.getItem('token')}`
           }
@@ -83,7 +83,7 @@ const Expense = () => {
         if (userData.user) {
           setUsername(userData.user.username);
           
-          const expensesRes = await fetch('http://localhost:5000/api/auth/expense', {
+          const expensesRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/expense', {
             headers: { 
               "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
@@ -195,8 +195,8 @@ const Expense = () => {
     setIsSubmitting(true);
     
     const url = editingExpense 
-      ? `http://localhost:5000/api/auth/expense/${editingExpense._id}`
-      : 'http://localhost:5000/api/auth/expense';
+      ? import.meta.env.VITE_BACKEND_URL+`/api/auth/expense/${editingExpense._id}`
+      : import.meta.env.VITE_BACKEND_URL+'/api/auth/expense';
     const method = editingExpense ? 'PUT' : 'POST';
 
     try {
@@ -241,7 +241,7 @@ const Expense = () => {
     if (!window.confirm('Are you sure you want to delete this expense record?')) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/expense/${id}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/auth/expense/${id}`, {
         method: 'DELETE',
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`

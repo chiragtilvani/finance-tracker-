@@ -61,7 +61,7 @@ const Income = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const userRes = await fetch('http://localhost:5000/api/auth/user', {
+        const userRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/user', {
           headers: { 
             "Authorization": `Bearer ${localStorage.getItem('token')}`
           }
@@ -71,7 +71,7 @@ const Income = () => {
         if (userData.user) {
           setUsername(userData.user.username);
           
-          const incomesRes = await fetch('http://localhost:5000/api/auth/income', {
+          const incomesRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/income', {
             headers: { 
               "Authorization": `Bearer ${localStorage.getItem('token')}`
             }
@@ -182,8 +182,8 @@ const Income = () => {
     setIsSubmitting(true);
     
     const url = editingIncome 
-      ? `http://localhost:5000/api/auth/income/${editingIncome._id}`
-      : 'http://localhost:5000/api/auth/income';
+      ? import.meta.env.VITE_BACKEND_URL+`/api/auth/income/${editingIncome._id}`
+      : import.meta.env.VITE_BACKEND_URL+'/api/auth/income';
     const method = editingIncome ? 'PUT' : 'POST';
 
     try {
@@ -232,7 +232,7 @@ const Income = () => {
     if (!window.confirm('Are you sure you want to delete this income record?')) return;
     
     try {
-      const response = await fetch(`http://localhost:5000/api/auth/income/${id}`, {
+      const response = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/auth/income/${id}`, {
         method: 'DELETE',
         headers: {
           "Authorization": `Bearer ${localStorage.getItem('token')}`

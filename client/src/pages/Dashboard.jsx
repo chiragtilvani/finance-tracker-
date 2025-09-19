@@ -37,7 +37,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/auth/user', {
+        const res = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/user', {
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('token')}`
           }
@@ -48,7 +48,7 @@ const Dashboard = () => {
           setUsername(data.user.username);
 
           // Fetch incomes
-          const incomeRes = await fetch('http://localhost:5000/api/auth/income', {
+          const incomeRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/income', {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
@@ -57,7 +57,7 @@ const Dashboard = () => {
           setIncomes(incomeData.incomes || []);
 
           // Fetch expenses
-          const expenseRes = await fetch('http://localhost:5000/api/auth/expense', {
+          const expenseRes = await fetch(import.meta.env.VITE_BACKEND_URL+'/api/auth/expense', {
             headers: {
               'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
