@@ -21,6 +21,6 @@ app.use('/api/auth', authRoutes);
 // DB Connect
 mongoose.connect(process.env.MONGO_URI)
 .then(() => {
-  app.listen(5000, () => console.log('✅ Server running on http://localhost:5000'));
+  app.listen(5000, () => console.log('✅ Server running on http://localhost:5000', 'cors origin: ', process.env.FRONTEND_URL));
 })
 .catch(err => console.error('❌ MongoDB Error:', err.message));
