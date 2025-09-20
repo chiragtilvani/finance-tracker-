@@ -13,7 +13,7 @@ app.use(cors({
 }));
 
 // ✅ MUST COME BEFORE ROUTES
-app.use(express.json());  // 📌 This is what parses req.body
+app.use(express.json());
 
 // ✅ Now routes will receive req.body correctly
 app.use('/api/auth', authRoutes);

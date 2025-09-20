@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
+import MobileHeader from '../components/MobileHeader';
+
 import { FiPlus, FiX, FiDollarSign, FiCalendar, FiUser, FiSearch, FiEdit2, FiTrash2, FiChevronLeft, FiChevronRight, FiDownload } from 'react-icons/fi';
 import EmojiPicker from 'emoji-picker-react';
 import { Bar, Line } from 'react-chartjs-2';
@@ -15,7 +17,6 @@ import {
   Tooltip,
   Legend
 } from 'chart.js';
-
 
 ChartJS.register(
   CategoryScale,
@@ -59,6 +60,7 @@ const Expense = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [editingExpense, setEditingExpense] = useState(null);
   const [chartType, setChartType] = useState('bar');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [form, setForm] = useState({ 
     category: '', 
     icon: '🧾', 
@@ -299,9 +301,15 @@ const Expense = () => {
 
   return (
     <div className="flex bg-gray-50 min-h-screen">
-      <Sidebar username={username} />
+      <Sidebar 
+        username={username}
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+      />
       
-      <div className="flex-1 ml-0 md:ml-64 p-4 md:p-6 transition-all duration-300">
+      <div className="flex-1 lg:ml-64">
+        <MobileHeader onMenuToggle={() => setIsSidebarOpen(true)} title="Expenses" />
+        <div className="p-4 sm:p-6 transition-all duration-300">
       
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
           <div>
@@ -645,6 +653,7 @@ const Expense = () => {
             </div>
           </div>
         )}
+        </div>
       </div>
     </div>
   );

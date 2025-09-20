@@ -1,7 +1,6 @@
-
-
 import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
+import MobileHeader from '../components/MobileHeader';
 import { useNavigate } from 'react-router-dom';
 import { FiDollarSign, FiTrendingUp, FiTrendingDown } from 'react-icons/fi';
 import { Pie, Bar } from 'react-chartjs-2';
@@ -32,6 +31,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [incomes, setIncomes] = useState([]);
   const [expenses, setExpenses] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -150,10 +150,20 @@ const Dashboard = () => {
 
   return (
     <div className="flex min-h-screen bg-gray-50">
-      <Sidebar username={username} />
+      <Sidebar 
+        username={username} 
+        isOpen={isSidebarOpen} 
+        onClose={() => setIsSidebarOpen(false)} 
+      />
 
-      <div className="ml-64 flex-1 p-8">
-        <h1 className="text-2xl font-bold text-gray-800 mb-8">Dashboard Overview</h1>
+      <div className="flex-1 lg:ml-64">
+        <MobileHeader 
+          onMenuToggle={() => setIsSidebarOpen(true)} 
+          title="Dashboard" 
+        />
+        
+        <div className="p-4 sm:p-6 lg:p-8 lg:max-w-7xl lg:mx-auto">
+          <h1 className="text-2xl font-bold text-gray-800 mb-6 lg:mb-8">Dashboard Overview</h1>
 
         {/* Summary Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -371,6 +381,7 @@ const Dashboard = () => {
                 <p>No expense transactions found</p>
               </div>
             )}
+          </div>
           </div>
         </div>
       </div>
